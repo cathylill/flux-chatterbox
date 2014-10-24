@@ -18,7 +18,10 @@
   "license": "ISC",
   "dependencies": {
     "flux": "^2.0.1",
-    "react": "^0.11.2"
+    "react": "^0.11.2",
+    "rtc-captureconfig": "^2.1.1",
+    "rtc-media": "^1.10.0",
+    "rtc-quickconnect": "^3.2.2"
   },
   "devDependencies": {
     "browserify": "^6.1.0",

@@ -4,16 +4,16 @@ var RtcChannel = require('../utils/RtcChannel');
 
 var ActionTypes = ChatterboxConstants.ActionTypes;
 
-var RtcActions = {
+var RtcLocalActions = {
 	captureMedia: function (stream) {
-		ChatterboxDispatcher.handleRtcAction({
+		ChatterboxDispatcher.handleRtcLocalAction({
 			type: ActionTypes.CAPTURE_MEDIA,
 			stream: stream
 		});
 	},
 
 	connect: function (room) {
-		ChatterboxDispatcher.handleRtcAction({
+		ChatterboxDispatcher.handleRtcLocalAction({
 			type: ActionTypes.CONNECT,
 			room: room
 		});
@@ -22,11 +22,13 @@ var RtcActions = {
 	},
 
 	createChannel: function (channel) {
-		ChatterboxDispatcher.handleRtcAction({
+		ChatterboxDispatcher.handleRtcLocalAction({
 			type: ActionTypes.CREATE_CHANNEL,
 			channel: channel
 		});
-	},
+
+		RtcChannel.createChannel(channel);
+	}
 };
 
-module.exports = RtcActions;
+module.exports = RtcLocalActions;

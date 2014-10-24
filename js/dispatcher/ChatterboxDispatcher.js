@@ -22,9 +22,18 @@ var ChatterboxDispatcher = copyProperties(new Dispatcher(), {
 		this.dispatch(payload);
 	},
 
-	handleRtcAction: function(action) {
+	handleRtcLocalAction: function(action) {
 		var payload = {
-			source: PayloadSources.RTC_ACTION,
+			source: PayloadSources.RTC_LOCAL_ACTION,
+			action: action
+		};
+
+		this.dispatch(payload);
+	},
+
+	handleRtcRemoteAction: function(action) {
+		var payload = {
+			source: PayloadSources.RTC_REMOTE_ACTION,
 			action: action
 		};
 

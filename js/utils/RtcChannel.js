@@ -1,10 +1,9 @@
 var quickconnect = require('rtc-quickconnect');
 var captureConfig = require('rtc-captureconfig');
 var media = require('rtc-media');
-var RtcActions = require('../actions/RtcActions');
+var RtcRemoteActions = require('../actions/RtcRemoteActions');
 var MessageActions = require('../actions/MessageActions');
 
-var room = location.pathname.replace(reRoomName, '$1').replace('/', '');
 var iceServers = [
 	{ url: 'stun:stun.l.google.com:19302' }
 ];
@@ -16,13 +15,13 @@ channel.onmessage = function(evt) {
 };
 
 var RtcChannel = {
-	connect: function () {
-		connection = quickconnect(location.href + '../../', {
+	connect: function (room) {
+		connection = quickconnect('http://rtc.io/switchboard/', {
 			room: room,
 			iceServers: iceServers
 		});
 
-		RtcActions.connect(room);
+		RtcRemoteActions.connected(room);
 	},
 
 	captureMedia: function () {
@@ -31,7 +30,7 @@ var RtcChannel = {
 		});
 
 		localMedia.once('capture', function(stream) {
-			RtcActions.captureMedia(stream);
+			RtcRemoteActions.capturedMedia(stream);
 		});
 	},
 
@@ -40,7 +39,7 @@ var RtcChannel = {
 		.createDataChannel(name)
 		.on('channel:opened:' + name, function(id, dc) {
 			channel = dc;
-			RtcActions.createChannel(channel);
+			RtcRemoteActions.createdChannel(channel);
 		});
 	},
 

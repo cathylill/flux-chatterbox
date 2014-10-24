@@ -5,7 +5,8 @@
 var React = require('react');
 var MessageDisplay = require('./MessageDisplay.react');
 var MessageStore = require('../stores/MessageStore');
-var RtcActions = require('../actions/RtcActions');
+var ConnectionStore = require('../stores/ConnectionStore');
+var RtcLocalActions = require('../actions/RtcLocalActions');
 
 function getMessagesState () {
 	return {
@@ -13,7 +14,7 @@ function getMessagesState () {
 	}
 }
 
-function getMessageDisplay(message) {
+function getMessageDisplay (message) {
 	return (
 		<MessageDisplay
 			message={message}
@@ -26,15 +27,18 @@ var Messages = React.createClass({
 		return getMessagesState();
 	},
 
-	componentWillMount: function () {
-		RtcActions.createChannel('trapchat');
-	},
+	// componentWillMount: function () {
+	// 	RtcLocalActions.createChannel('trapchat');
+	// },
 
-	componentDidMount: function() {
+	componentDidMount: function () {
 		MessageStore.addChangeListener(this._onChange);
+		ConnectionStore.addChangeListener(function () {
+			console.log(arguments);
+		});
 	},
 
-	render: function() {
+	render: function () {
 		var messages = this.state.messages.map(getMessageDisplay);
 
 		return (
@@ -44,7 +48,7 @@ var Messages = React.createClass({
 		);
 	},
 
-	_onChange: function() {
+	_onChange: function () {
 		this.setState(getMessagesState());
 	}
 });

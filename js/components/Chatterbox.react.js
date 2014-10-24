@@ -3,14 +3,14 @@
  */
 
 var React = require('react');
-var RtcActions = require('../actions/RtcActions');
+var RtcLocalActions = require('../actions/RtcLocalActions');
 var TypeMessage = require('./TypeMessage.react.js');
 var Messages = require('./Messages.react.js');
 var Videos = require('./Videos.react.js');
 
 var Chatterbox = React.createClass({
 	componentDidMount: function() {
-		RtcActions.connect('itsatrap');
+		RtcLocalActions.connect('itsatrap');
 	},
 
 	render: function() {
