@@ -34,6 +34,10 @@ MessageStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 			break;
 
 		case ActionTypes.RECEIVE_MESSAGE:
+			var message = action.text;
+
+			_messages.push(message);
+			MessageStore.emitChange();
 			break;
 
 		default:

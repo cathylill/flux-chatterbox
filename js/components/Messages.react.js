@@ -5,6 +5,7 @@
 var React = require('react');
 var MessageDisplay = require('./MessageDisplay.react');
 var MessageStore = require('../stores/MessageStore');
+var RtcActions = require('../actions/RtcActions');
 
 function getMessagesState () {
 	return {
@@ -23,6 +24,10 @@ function getMessageDisplay(message) {
 var Messages = React.createClass({
 	getInitialState: function() {
 		return getMessagesState();
+	},
+
+	componentWillMount: function () {
+		RtcActions.createChannel('trapchat');
 	},
 
 	componentDidMount: function() {

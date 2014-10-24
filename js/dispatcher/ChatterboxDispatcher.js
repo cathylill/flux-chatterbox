@@ -20,6 +20,15 @@ var ChatterboxDispatcher = copyProperties(new Dispatcher(), {
 		};
 
 		this.dispatch(payload);
+	},
+
+	handleRtcAction: function(action) {
+		var payload = {
+			source: PayloadSources.RTC_ACTION,
+			action: action
+		};
+
+		this.dispatch(payload);
 	}
 });
 

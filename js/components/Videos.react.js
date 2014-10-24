@@ -3,12 +3,14 @@
  */
 
 var React = require('react');
+var LocalVideo = require('./LocalVideo.react.js');
 
 var Videos = React.createClass({
 	render: function() {
 		return (
 			<div className="videos">
-				Videos go here.
+				Local Video:
+				<LocalVideo />
 			</div>
 		);
 	}
