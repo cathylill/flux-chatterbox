@@ -27,15 +27,16 @@ var Messages = React.createClass({
 		return getMessagesState();
 	},
 
-	// componentWillMount: function () {
-	// 	RtcLocalActions.createChannel('trapchat');
-	// },
+	componentWillMount: function () {
+		if (!ConnectionStore.getConnection) {
+			ConnectionStore.addChangeListener(this._onConnection);
+		} else {
+			this._onConnection();
+		}
+	},
 
 	componentDidMount: function () {
 		MessageStore.addChangeListener(this._onChange);
-		ConnectionStore.addChangeListener(function () {
-			console.log(arguments);
-		});
 	},
 
 	render: function () {
@@ -50,6 +51,10 @@ var Messages = React.createClass({
 
 	_onChange: function () {
 		this.setState(getMessagesState());
+	},
+
+	_onConnection: function () {
+		RtcLocalActions.createChannel('trapchat');
 	}
 });
 

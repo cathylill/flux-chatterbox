@@ -7,7 +7,6 @@ var ActionTypes = ChatterboxConstants.ActionTypes;
 var _messages = [];
 var CHANGE_EVENT = 'change';
 
-
 var MessageStore = merge(EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
@@ -35,7 +34,7 @@ MessageStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 
 		case ActionTypes.RECEIVE_MESSAGE:
 			var message = action.text;
-
+			console.log('message received');
 			_messages.push(message);
 			MessageStore.emitChange();
 			break;

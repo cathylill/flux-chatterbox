@@ -13,13 +13,6 @@ var MessageActions = {
 		});
 
 		RtcChannel.postMessage(text);
-	},
-
-	recieveMessage: function (text) {
-		ChatterboxDispatcher.handleRtcAction({
-			type: ActionTypes.RECIEVE_MESSAGE,
-			text: text
-		});
 	}
 };
 

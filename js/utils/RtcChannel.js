@@ -2,7 +2,6 @@ var quickconnect = require('rtc-quickconnect');
 var captureConfig = require('rtc-captureconfig');
 var media = require('rtc-media');
 var RtcRemoteActions = require('../actions/RtcRemoteActions');
-var MessageActions = require('../actions/MessageActions');
 
 var iceServers = [
 	{ url: 'stun:stun.l.google.com:19302' }
@@ -10,18 +9,15 @@ var iceServers = [
 var channel = {};
 var connection;
 
-channel.onmessage = function(evt) {
-	MessageActions.recieveMessage(evt.data);
-};
-
 var RtcChannel = {
 	connect: function (room) {
 		connection = quickconnect('http://rtc.io/switchboard/', {
 			room: room,
-			iceServers: iceServers
+			iceServers: iceServers,
+			reactive: true
 		});
 
-		RtcRemoteActions.connected(room);
+		RtcRemoteActions.connected(connection);
 	},
 
 	captureMedia: function () {
@@ -40,6 +36,10 @@ var RtcChannel = {
 		.on('channel:opened:' + name, function(id, dc) {
 			channel = dc;
 			RtcRemoteActions.createdChannel(channel);
+
+			channel.onmessage = function(evt) {
+				RtcRemoteActions.receiveMessage(evt.data);
+			};
 		});
 	},
 
@@ -48,7 +48,7 @@ var RtcChannel = {
 	},
 
 	getConnection: function () {
-		return connectionl
+		return connection;
 	},
 
 	postMessage: function (message) {

@@ -9,7 +9,7 @@ var Messages = require('./Messages.react.js');
 var Videos = require('./Videos.react.js');
 
 var Chatterbox = React.createClass({
-	componentDidMount: function() {
+	componentWillMount: function() {
 		RtcLocalActions.connect('itsatrap');
 	},
 

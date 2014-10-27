@@ -24,6 +24,13 @@ var RtcRemoteActions = {
 			type: ActionTypes.CREATED_CHANNEL,
 			channel: channel
 		});
+	},
+
+	receiveMessage: function (text) {
+		ChatterboxDispatcher.handleRtcRemoteAction({
+			type: ActionTypes.RECEIVE_MESSAGE,
+			text: text
+		});
 	}
 };
 
