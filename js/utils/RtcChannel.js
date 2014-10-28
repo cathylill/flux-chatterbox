@@ -15,6 +15,16 @@ var RtcChannel = {
 			room: room,
 			iceServers: iceServers,
 			reactive: true
+		})
+		.on('call:started', function(id, pc, data) {
+			RtcRemoteActions.gotPeer({
+				id: id,
+				peer: pc,
+				data: data
+			});
+		})
+		.on('call:ended', function(id, pc, data) {
+			RtcRemoteActions.lostPeer(id);
 		});
 
 		RtcRemoteActions.connected(connection);
@@ -26,7 +36,8 @@ var RtcChannel = {
 		});
 
 		localMedia.once('capture', function(stream) {
-			RtcRemoteActions.capturedMedia(stream);
+			RtcRemoteActions.capturedMedia(localMedia);
+			connection.addStream(stream);
 		});
 	},
 

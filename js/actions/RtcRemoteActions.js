@@ -31,6 +31,20 @@ var RtcRemoteActions = {
 			type: ActionTypes.RECEIVE_MESSAGE,
 			text: text
 		});
+	},
+
+	gotPeer: function (peer) {
+		ChatterboxDispatcher.handleRtcRemoteAction({
+			type: ActionTypes.GOT_PEER,
+			peer: peer
+		});
+	},
+
+	lostPeer: function (id) {
+		ChatterboxDispatcher.handleRtcRemoteAction({
+			type: ActionTypes.LOST_PEER,
+			id: id
+		});
 	}
 };
 

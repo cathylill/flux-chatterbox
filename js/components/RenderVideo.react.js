@@ -5,6 +5,13 @@
 var React = require('react');
 var RtcLocalActions = require('../actions/RtcLocalActions');
 var LocalStreamStore = require('../stores/LocalStreamStore');
+var RemoteStreamStore = require('../stores/RemoteStreamStore');
+
+var source;
+
+function getSource (propSource) {
+	source = (propSource === 'local') ? LocalStreamStore : RemoteStreamStore;
+};
 
 var LocalVideo = React.createClass({
 	getInitialState: function() {
@@ -23,25 +30,13 @@ var LocalVideo = React.createClass({
 	},
 
 	componentDidUpdate: function () {
-		var reactClass = this;
-
-		reactClass.state.stream.render(reactClass.getDOMNode());
+		this.state.stream.render(reactClass.getDOMNode());
 	},
 
 	render: function() {
-		var reactClass = this;
-
-		if (!reactClass.state.stream) {
-			return (
-				<div className="local-video">
-					Waiting for local video...
-				</div>
-			);
-		} else if (reactClass.state.stream) {
-			return (
-				<div className="local-video"></div>
-			);
-		}
+		return (
+			<div className="render-video"></div>
+		);
 	}
 });
 

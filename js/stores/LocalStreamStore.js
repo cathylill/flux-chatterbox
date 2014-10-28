@@ -7,7 +7,7 @@ var ActionTypes = ChatterboxConstants.ActionTypes;
 var _localStream = {};
 var CHANGE_EVENT = 'change';
 
-var StreamStore = merge(EventEmitter.prototype, {
+var LocalStreamStore = merge(EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
 	},
@@ -21,7 +21,7 @@ var StreamStore = merge(EventEmitter.prototype, {
 	}
 });
 
-StreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
+LocalStreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch(action.type) {
@@ -29,7 +29,7 @@ StreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 
 			console.log('captured local media');
 			_localStream = action.stream;
-			StreamStore.emitChange();
+			LocalStreamStore.emitChange();
 			break;
 
 		default:
@@ -37,4 +37,4 @@ StreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	}
 });
 
-module.exports = StreamStore;
+module.exports = LocalStreamStore;

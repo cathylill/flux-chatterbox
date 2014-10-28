@@ -9,7 +9,9 @@ var ChatterboxConstants = {
 		CREATE_CHANNEL: null,
 		CREATED_CHANNEL: null,
 		SEND_MESSAGE: null,
-		RECEIVE_MESSAGE: null
+		RECEIVE_MESSAGE: null,
+		GOT_PEER: null,
+		LOST_PEER: null
 	}),
 
 	PayloadSources: keyMirror({

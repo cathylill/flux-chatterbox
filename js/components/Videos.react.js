@@ -4,6 +4,7 @@
 
 var React = require('react');
 var LocalVideo = require('./LocalVideo.react.js');
+var RemoteVideos = require('./RemoteVideos.react.js');
 
 var Videos = React.createClass({
 	render: function() {
@@ -11,6 +12,9 @@ var Videos = React.createClass({
 			<div className="videos">
 				Local Video:
 				<LocalVideo />
+
+				Remote Videos:
+				<RemoteVideos />
 			</div>
 		);
 	}
