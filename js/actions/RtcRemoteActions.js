@@ -5,10 +5,10 @@ var RtcChannel = require('../utils/RtcChannel');
 var ActionTypes = ChatterboxConstants.ActionTypes;
 
 var RtcRemoteActions = {
-	capturedMedia: function (stream) {
+	capturedMedia: function (media) {
 		ChatterboxDispatcher.handleRtcRemoteAction({
 			type: ActionTypes.CAPTURED_MEDIA,
-			stream: stream
+			media: media
 		});
 	},
 

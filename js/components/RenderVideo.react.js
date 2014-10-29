@@ -3,34 +3,15 @@
  */
 
 var React = require('react');
-var RtcLocalActions = require('../actions/RtcLocalActions');
-var LocalStreamStore = require('../stores/LocalStreamStore');
-var RemoteStreamStore = require('../stores/RemoteStreamStore');
+var StreamStore = require('../stores/StreamStore');
 
-var source;
-
-function getSource (propSource) {
-	source = (propSource === 'local') ? LocalStreamStore : RemoteStreamStore;
-};
-
-var LocalVideo = React.createClass({
+var RenderVideo = React.createClass({
 	getInitialState: function() {
-		return {stream: null};
+		return {stream: StreamStore.getStream(this.props.id)};
 	},
 
 	componentDidMount: function () {
-		var reactClass = this;
-
-		RtcLocalActions.captureMedia();
-		LocalStreamStore.addChangeListener(function () {
-			reactClass.setState({
-				stream: LocalStreamStore.getLocalStream()
-			});
-		});
-	},
-
-	componentDidUpdate: function () {
-		this.state.stream.render(reactClass.getDOMNode());
+		this.state.stream.media.render(this.getDOMNode());
 	},
 
 	render: function() {
@@ -40,4 +21,4 @@ var LocalVideo = React.createClass({
 	}
 });
 
-module.exports = LocalVideo;
+module.exports = RenderVideo;

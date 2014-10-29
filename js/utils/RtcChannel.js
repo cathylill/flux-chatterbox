@@ -32,7 +32,7 @@ var RtcChannel = {
 
 	captureMedia: function () {
 		var localMedia = media({
-			constraints: captureConfig('camera min:640x480').toConstraints()
+			constraints: captureConfig('camera max:320x240').toConstraints()
 		});
 
 		localMedia.once('capture', function(stream) {
@@ -63,6 +63,7 @@ var RtcChannel = {
 	},
 
 	postMessage: function (message) {
+		//handle empty channel here
 		channel.send(message);
 	}
 };

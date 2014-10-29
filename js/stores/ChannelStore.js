@@ -4,10 +4,10 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
 var ActionTypes = ChatterboxConstants.ActionTypes;
-var _connection = {};
+var _channels = [];
 var CHANGE_EVENT = 'change';
 
-var ConnectionStore = merge(EventEmitter.prototype, {
+var ChannelStore = merge(EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
 	},
@@ -21,15 +21,15 @@ var ConnectionStore = merge(EventEmitter.prototype, {
 	}
 });
 
-ConnectionStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
+ChannelStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch(action.type) {
-		case ActionTypes.CONNECTED:
+		case ActionTypes.CREATED_CHANNEL:
 
-			console.log('connected');
-			_connection = action.room;
-			ConnectionStore.emitChange();
+			console.log('channel created');
+			_channels.push(action.channel);
+			ChannelStore.emitChange();
 			break;
 
 		default:
@@ -37,4 +37,4 @@ ConnectionStore.dispatchToken = ChatterboxDispatcher.register(function(payload) 
 	}
 });
 
-module.exports = ConnectionStore;
+module.exports = ChannelStore;

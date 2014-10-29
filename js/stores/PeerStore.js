@@ -1,13 +1,14 @@
 var ChatterboxDispatcher = require('../dispatcher/ChatterboxDispatcher');
 var ChatterboxConstants = require('../constants/ChatterboxConstants');
+var StreamStore = require('./StreamStore');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
 var ActionTypes = ChatterboxConstants.ActionTypes;
-var _remoteStreams = {};
+var _peers = {};
 var CHANGE_EVENT = 'change';
 
-var RemoteStreamStore = merge(EventEmitter.prototype, {
+var PeerStore = merge(EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
 	},
@@ -16,28 +17,30 @@ var RemoteStreamStore = merge(EventEmitter.prototype, {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	getRemoteStreams: function(id) {
-		if (id) return _remoteStreams[id];
-		return _remoteStreams;
+	getPeers: function(id) {
+		if (id) return _peers[id];
+		return _peers;
 	}
 });
 
-RemoteStreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
+PeerStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch(action.type) {
 		case ActionTypes.GOT_PEER:
 
-			console.log('got peer' + action.peer.id);
-			_remoteStreams[action.peer.id] = action.peer;
-			RemoteStreamStore.emitChange();
+			console.log('got peer: ' + action.peer.id);
+			ChatterboxDispatcher.waitFor([StreamStore.dispatchToken]);
+			_peers[action.peer.id] = action.peer;
+			PeerStore.emitChange();
 			break;
 
 		case ActionTypes.LOST_PEER:
 
-			console.log('lost peer' + id);
-			delete _remoteStreams[action.id];
-			RemoteStreamStore.emitChange();
+			console.log('lost peer: ' + id);
+			ChatterboxDispatcher.waitFor([StreamStore.dispatchToken]);
+			delete _peers[action.id];
+			PeerStore.emitChange();
 			break;
 
 		default:
@@ -45,4 +48,4 @@ RemoteStreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload
 	}
 });
 
-module.exports = RemoteStreamStore;
+module.exports = PeerStore;

@@ -1,13 +1,14 @@
 var ChatterboxDispatcher = require('../dispatcher/ChatterboxDispatcher');
 var ChatterboxConstants = require('../constants/ChatterboxConstants');
+var StreamStore = require('./StreamStore');
 var EventEmitter = require('events').EventEmitter;
 var merge = require('react/lib/merge');
 
 var ActionTypes = ChatterboxConstants.ActionTypes;
-var _localStream = {};
+var _localMedia = {};
 var CHANGE_EVENT = 'change';
 
-var LocalStreamStore = merge(EventEmitter.prototype, {
+var LocalMediaStore = merge(EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
 	},
@@ -16,20 +17,20 @@ var LocalStreamStore = merge(EventEmitter.prototype, {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	getLocalStream: function() {
-		return _localStream;
+	getLocalMedia: function() {
+		return _localMedia;
 	}
 });
 
-LocalStreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
+LocalMediaStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch(action.type) {
 		case ActionTypes.CAPTURED_MEDIA:
 
-			console.log('captured local media');
-			_localStream = action.stream;
-			LocalStreamStore.emitChange();
+			ChatterboxDispatcher.waitFor([StreamStore.dispatchToken]);
+			_localMedia = action.media;
+			LocalMediaStore.emitChange();
 			break;
 
 		default:
@@ -37,4 +38,4 @@ LocalStreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload)
 	}
 });
 
-module.exports = LocalStreamStore;
+module.exports = LocalMediaStore;
