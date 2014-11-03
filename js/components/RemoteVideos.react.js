@@ -26,9 +26,7 @@ function getRenderVideo (remotePeer) {
 	return (
 		<div className='single-video'>
 			<h3>Peer: {remotePeer.id}</h3>
-			<RenderVideo
-				id={id}
-			/>
+			<RenderVideo id={id} />
 		</div>
 	);
 }
@@ -54,34 +52,6 @@ var RemoteVideos = React.createClass({
 	_onChange: function () {
 		this.setState(getPeersState());
 	}
-
-
-	// componentDidMount: function () {
-	// 	var reactClass = this;
-
-	// 	RemoteStreamStore.addChangeListener(function () {
-	// 		reactClass.setState(getRemoteStreamsState());
-	// 	});
-	// },
-
-	// render: function() {
-	// 	var reactClass = this;
-
-	// 	if (!reactClass.state.streams) {
-	// 		return (
-	// 			<div className="remote-videos">
-	// 				Waiting for remote videos...
-	// 			</div>
-	// 		);
-	// 	} else if (reactClass.state.streams) {
-	// 		var streams = this.state.streams.map(getMessageDisplay);
-	// 		return (
-	// 			<div className="remote-videos">
-	// 				{streams}
-	// 			</div>
-	// 		);
-	// 	}
-	// }
 });
 
 module.exports = RemoteVideos;

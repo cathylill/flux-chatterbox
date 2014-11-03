@@ -28,7 +28,6 @@ StreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 	switch(action.type) {
 		case ActionTypes.GOT_PEER:
 			console.log('stream store has a peer');
-			console.log(action.peer.peer);
 			var peerStreams = action.peer.peer.getRemoteStreams();
 			peerStreams.forEach(function (item, index) {
 				return (function (it, ind) {
@@ -44,7 +43,6 @@ StreamStore.dispatchToken = ChatterboxDispatcher.register(function(payload) {
 
 		case ActionTypes.CAPTURED_MEDIA:
 			console.log('stream store has local media');
-			console.log(action.media);
 			_streams[action.media.stream.id] = {
 				source: 'local',
 				peerId: '0',

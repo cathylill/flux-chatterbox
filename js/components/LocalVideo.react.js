@@ -31,9 +31,7 @@ var LocalVideo = React.createClass({
 			return (
 				<div className="local-video">
 					<h3>Local Video</h3>
-					<RenderVideo
-						id={id}
-					/>
+					<RenderVideo id={id} />
 				</div>
 			);
 		}

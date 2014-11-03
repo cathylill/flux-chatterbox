@@ -1,13 +1,16 @@
 var quickconnect = require('rtc-quickconnect');
 var captureConfig = require('rtc-captureconfig');
-var media = require('rtc-media');
+var rtcMedia = require('rtc-media');
+var rtcMesh = require('rtc-mesh');
+var uuid = require('uuid');
 var RtcRemoteActions = require('../actions/RtcRemoteActions');
 
 var iceServers = [
 	{ url: 'stun:stun.l.google.com:19302' }
 ];
-var channel = {};
-var connection;
+var channel = null;
+var connection = null;
+var mesh = null;
 
 var RtcChannel = {
 	connect: function (room) {
@@ -31,7 +34,7 @@ var RtcChannel = {
 	},
 
 	captureMedia: function () {
-		var localMedia = media({
+		var localMedia = rtcMedia({
 			constraints: captureConfig('camera max:320x240').toConstraints()
 		});
 
@@ -42,16 +45,18 @@ var RtcChannel = {
 	},
 
 	createChannel: function (name) {
-		connection
-		.createDataChannel(name)
-		.on('channel:opened:' + name, function(id, dc) {
-			channel = dc;
-			RtcRemoteActions.createdChannel(channel);
-
-			channel.onmessage = function(evt) {
-				RtcRemoteActions.receiveMessage(evt.data);
-			};
+		mesh = rtcMesh(connection);
+		mesh.on('update', function (args, updateId, source) {
+			if (source !== this.id) RtcRemoteActions.receiveMessage(args[1]);
 		});
+	},
+
+	postMessage: function (message) {
+		if (mesh) {
+			mesh.set(uuid.v4(), message);
+		} else {
+			console.log('sorry no mesh yet');
+		}
 	},
 
 	getChannel: function () {
@@ -62,9 +67,8 @@ var RtcChannel = {
 		return connection;
 	},
 
-	postMessage: function (message) {
-		//handle empty channel here
-		channel.send(message);
+	getMesh: function () {
+		return mesh;
 	}
 };
 
