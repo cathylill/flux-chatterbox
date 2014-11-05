@@ -4,14 +4,19 @@
 		<meta charset="UTF-8">
 		<title>Chatterbox</title>
 		<style>
+			* { box-sizing: border-box; }
 			body { background: #cadce0; font-family: sans-serif; text-align: center; }
 			video { height: 240px; width: 320px; }
-			#chatterbox { margin: 0 auto; text-align: left; width: 800px; }
-			.me { overflow: hidden; }
+			#chatterbox { margin: 0 auto; text-align: left; width: 960px; }
+			.me { clear: both; overflow: hidden; padding-top: 4em; }
 			.local-video { float: left; margin-right: 2em; }
 			.local-video video { height: 120px;  transform: scale(-1, 1); width: 160px;}
-			.type-message { float: left; padding-top: 4em; }
-			.type-message textarea { height: 100px; width: 500px; }
+			.type-message { float: left; }
+			.type-message textarea { height: 120px; width: 500px; }
+			.everyone {}
+			.remote-videos {}
+			.messages { clear: both; }
+			.single-video { float: left; margin: 0; padding: 0; }
 		</style>
 	</head>
 	<body>

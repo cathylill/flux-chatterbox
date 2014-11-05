@@ -21,7 +21,6 @@ var LocalVideo = React.createClass({
 		if (!this.state.media) {
 			return (
 				<div className="local-video">
-					<h3>Local Video</h3>
 					Waiting for local video...
 				</div>
 			);
@@ -30,7 +29,6 @@ var LocalVideo = React.createClass({
 
 			return (
 				<div className="local-video">
-					<h3>Local Video</h3>
 					<RenderVideo id={id} />
 				</div>
 			);
