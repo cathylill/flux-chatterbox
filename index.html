@@ -3,6 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Chatterbox</title>
+		<style>
+			body { background: #cadce0; font-family: sans-serif; text-align: center; }
+			video { height: 240px; width: 320px; }
+			#chatterbox { margin: 0 auto; text-align: left; width: 800px; }
+			.me { overflow: hidden; }
+			.local-video { float: left; margin-right: 2em; }
+			.local-video video { height: 120px;  transform: scale(-1, 1); width: 160px;}
+			.type-message { float: left; padding-top: 4em; }
+			.type-message textarea { height: 100px; width: 500px; }
+		</style>
 	</head>
 	<body>
 		<div id="chatterbox"></div>
