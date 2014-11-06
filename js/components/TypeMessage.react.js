@@ -16,14 +16,13 @@ var TypeMessage = React.createClass({
 	render: function() {
 		return (
 			<div className="type-message">
-				<label>Type a message:</label>
-				<input
-					type="text"
+				<textarea
 					name="message"
+					placeholder="Type a message..."
 					value={this.state.text}
 					onChange={this._onChange}
 					onKeyDown={this._onKeyDown}
-				/>
+				></textarea>
 			</div>
 		);
 	},
