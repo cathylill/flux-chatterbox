@@ -3,8 +3,8 @@
  */
 
 var React = require('react');
-var Chatterbox = require('./components/Chatterbox.react');
+var routes = require('./routes/ChatterboxRoutes');
 
 window.React = React; // export for http://fb.me/react-devtools
 
-React.renderComponent(<Chatterbox />, document.getElementById('chatterbox'));
+React.render(routes, document.getElementById('chatterbox'));
