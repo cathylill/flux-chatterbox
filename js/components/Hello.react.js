@@ -23,7 +23,6 @@ var Hello = React.createClass({
 		return (
 			<div className="hello">
 				<div className="me">
-					<LocalVideo />
 					<form onSubmit={this._gotoRoom}>
 						<input type="text" ref="name" placeholder="Your name" />
 						<input type="text" ref="room" placeholder="Room to join" />
@@ -38,7 +37,7 @@ var Hello = React.createClass({
 		var name = this.refs.name.getDOMNode();
 		var room = this.refs.room.getDOMNode();
 
-		this.transitionTo('/chat:' + room.value.trim());
+		this.transitionTo('call', { room: room.value.trim(), name: name.value.trim() });
 
 		event.preventDefault();
 	}

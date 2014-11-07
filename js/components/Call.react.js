@@ -7,8 +7,13 @@ var TypeMessage = require('../components/TypeMessage.react');
 var Messages = require('../components/Messages.react');
 var LocalVideo = require('../components/LocalVideo.react');
 var RemoteVideos = require('../components/RemoteVideos.react');
+var RtcLocalActions = require('../actions/RtcLocalActions');
 
 var Call = React.createClass({
+	componentWillMount: function() {
+		RtcLocalActions.connect(this.props.room, this.props.name);
+	},
+
 	render: function () {
 		return (
 			<div className="call">

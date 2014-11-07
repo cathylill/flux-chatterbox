@@ -13,12 +13,13 @@ var connection = null;
 var mesh = null;
 
 var RtcChannel = {
-	connect: function (room) {
+	connect: function (room, name) {
 		connection = quickconnect('http://rtc.io/switchboard/', {
 			room: room,
 			iceServers: iceServers,
 			reactive: true
 		})
+		.profile({name: name})
 		.on('call:started', function(id, pc, data) {
 			RtcRemoteActions.gotPeer({
 				id: id,

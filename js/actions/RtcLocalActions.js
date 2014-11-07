@@ -13,13 +13,14 @@ var RtcLocalActions = {
 		RtcChannel.captureMedia();
 	},
 
-	connect: function (room) {
+	connect: function (room, name) {
 		ChatterboxDispatcher.handleRtcLocalAction({
 			type: ActionTypes.CONNECT,
-			room: room
+			room: room,
+			name: name
 		});
 
-		RtcChannel.connect(room);
+		RtcChannel.connect(room, name);
 	},
 
 	createChannel: function (channel) {

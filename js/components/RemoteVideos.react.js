@@ -25,7 +25,7 @@ function getRenderVideo (remotePeer) {
 
 	return (
 		<div className='single-video'>
-			<h3>Peer: {remotePeer.id}</h3>
+			<h3>Peer: {remotePeer.data.name}</h3>
 			<RenderVideo id={id} />
 		</div>
 	);

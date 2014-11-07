@@ -17,7 +17,7 @@ var routes = (
 	<Routes>
 		<Route handler={Chatterbox}>
 			<DefaultRoute handler={Hello} />
-			<Route name="call" path="/call:room" handler={Call} />
+			<Route name="call" path="/call/:room" handler={Call} />
 		</Route>
 	</Routes>
 );

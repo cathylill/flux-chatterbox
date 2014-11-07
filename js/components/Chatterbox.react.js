@@ -3,13 +3,8 @@
  */
 
 var React = require('react');
-var RtcLocalActions = require('../actions/RtcLocalActions');
 
 var Chatterbox = React.createClass({
-	componentWillMount: function() {
-		RtcLocalActions.connect('itsatrap');
-	},
-
 	render: function() {
 		return (
 			<div className="container">
