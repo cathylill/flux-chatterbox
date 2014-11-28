@@ -11,7 +11,8 @@ var RtcLocalActions = require('../actions/RtcLocalActions');
 
 var Call = React.createClass({
 	componentWillMount: function() {
-		RtcLocalActions.connect(this.props.room, this.props.name);
+		console.log(this.props);
+		RtcLocalActions.connect(this.props.room, this.props.person);
 	},
 
 	render: function () {

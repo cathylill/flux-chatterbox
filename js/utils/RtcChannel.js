@@ -21,6 +21,7 @@ var RtcChannel = {
 		})
 		.profile({name: name})
 		.on('call:started', function(id, pc, data) {
+			console.log(arguments);
 			RtcRemoteActions.gotPeer({
 				id: id,
 				peer: pc,

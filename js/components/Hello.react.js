@@ -34,10 +34,10 @@ var Hello = React.createClass({
 	},
 
 	_gotoRoom: function (event) {
-		var name = this.refs.name.getDOMNode();
+		var nom = this.refs.name.getDOMNode();
 		var room = this.refs.room.getDOMNode();
 
-		this.transitionTo('call', { room: room.value.trim(), name: name.value.trim() });
+		this.transitionTo('call', { 'room': room.value.trim() });
 
 		event.preventDefault();
 	}
